@@ -32,6 +32,14 @@ class ListChained:
 
     self.size += 1
   
+  def __str__(self) -> str:
+    currentNode = self.firstNode
+    string = ""
+    while currentNode.NextNode != None:
+      string += str(currentNode.data)+" "
+      currentNode = currentNode.NextNode
+    string += str(currentNode.data)
+    return string
 
 # class Node:
 #   def __init__(self,data):

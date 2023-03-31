@@ -4,10 +4,13 @@
 import discord
 
 from discord.ext import commands
+from dataType.ListChained import ListChained
+
 
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.historic = ListChained(None)
         self.registerCommand()
 
     async def on_ready(self):
@@ -44,7 +47,12 @@ class Client(commands.Bot):
     
     def registerCommand(self):
 
-        
+        @self.command()
+        async def add(ctx,data):
+            self.historic.append(data)
+            await ctx.send('Added!')
+            await ctx.send("Historic: "+str(self.historic.size)+" elements")
+            await ctx.send(self.historic)
 
         @self.command()
         async def ping(ctx):
