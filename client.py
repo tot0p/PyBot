@@ -10,7 +10,7 @@ from dataType.ListChained import ListChained
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.historic = ListChained(None)
+        self.historic = None
         self.registerCommand()
 
     async def on_ready(self):
@@ -49,10 +49,27 @@ class Client(commands.Bot):
 
         @self.command()
         async def add(ctx,data):
-            self.historic.append(data)
-            await ctx.send('Added!')
-            await ctx.send("Historic: "+str(self.historic.size)+" elements")
+            if self.historic == None:
+                self.historic = ListChained(data)
+            else:
+                self.historic.append(data)
             await ctx.send(self.historic)
+
+        @self.command()
+        async def insert(ctx,indice,data):
+            if self.historic == None:
+                self.historic = ListChained(data)
+            else:
+                self.historic.insert(indice,data)
+            await ctx.send(self.historic)
+
+        @self.command()
+        async def insert_first(ctx,data):
+            if self.historic == None:
+                self.historic = ListChained(data)
+            else:
+                self.historic.insert_first(data)
+            await ctx.send(self.historic)        
 
         @self.command()
         async def ping(ctx):
