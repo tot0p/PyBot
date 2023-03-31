@@ -3,10 +3,12 @@
 
 import discord
 
+from discord.ext import commands
 
-class Client(discord.Client):
+class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.registerCommand()
 
     async def on_ready(self):
         """Handle when the bot is ready"""
@@ -23,6 +25,8 @@ class Client(discord.Client):
         if message.content.startswith('$hello'):
             await message.channel.send('Hello!')
 
+        await super().process_commands(message)
+
 
     async def on_member_join(self, member):
         """Send a welcome message to the new member"""
@@ -37,5 +41,18 @@ class Client(discord.Client):
     async def clear(self) -> None:
         self._ready = False
         return await super().clear()
+    
+    def registerCommand(self):
+
+        
+
+        @self.command()
+        async def ping(ctx):
+            await ctx.send('Pong!')
+
+        @self.command()
+        async def delete(ctx, amount=5):
+            await ctx.channel.purge(limit=amount)
+    
     
 

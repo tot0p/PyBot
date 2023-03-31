@@ -16,9 +16,10 @@ def Init():
 if __name__ == '__main__':
     Init()
     Intents = discord.Intents.all()
-    client = Client(intents=Intents)
+    client = Client(intents=Intents,command_prefix='!')
 
-    
+    # @client.command()
+    # async def ping(ctx):
+    #     await ctx.send('Pong!')
 
     client.run(env.Get('DISCORD_TOKEN'))
-    
