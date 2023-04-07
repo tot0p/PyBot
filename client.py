@@ -4,7 +4,9 @@ from discord.ext import commands
 from dataType.ListChained import ListChained
 from discord import app_commands
 
-from constant import OWNER_ID
+import os
+
+from constant import *
 
 
 class Client(commands.Bot):
@@ -53,37 +55,46 @@ class Client(commands.Bot):
     
     def registerCommand(self):
 
-        @self.command()
-        async def add(ctx,data):
-            if self.historic == None:
-                self.historic = ListChained(data)
-            else:
-                self.historic.append(data)
-            await ctx.send(self.historic)
+        contentOfDir = os.listdir(COMMANDS_MESSAGE_DIR)
+        for file in contentOfDir:
+            if file.endswith(".py"):
+                with open(COMMANDS_MESSAGE_DIR+"/"+file) as f:
+                    env = {'client': self}
+                    code = compile(f.read(), file, 'exec')
+                    exec(code, env)
 
-        @self.command()
-        async def insert(ctx,indice,data):
-            if self.historic == None:
-                self.historic = ListChained(data)
-            else:
-                self.historic.insert(indice,data)
-            await ctx.send(self.historic)
 
-        @self.command()
-        async def insert_first(ctx,data):
-            if self.historic == None:
-                self.historic = ListChained(data)
-            else:
-                self.historic.insert_first(data)
-            await ctx.send(self.historic)        
+        # @self.command()
+        # async def add(ctx,data):
+        #     if self.historic == None:
+        #         self.historic = ListChained(data)
+        #     else:
+        #         self.historic.append(data)
+        #     await ctx.send(self.historic)
 
-        @self.command()
-        async def ping(ctx):
-            await ctx.send('Pong!')
+        # @self.command()
+        # async def insert(ctx,indice,data):
+        #     if self.historic == None:
+        #         self.historic = ListChained(data)
+        #     else:
+        #         self.historic.insert(indice,data)
+        #     await ctx.send(self.historic)
 
-        @self.command()
-        async def delete(ctx, amount=5):
-            await ctx.channel.purge(limit=amount)
+        # @self.command()
+        # async def insert_first(ctx,data):
+        #     if self.historic == None:
+        #         self.historic = ListChained(data)
+        #     else:
+        #         self.historic.insert_first(data)
+        #     await ctx.send(self.historic)        
+
+        # @self.command()
+        # async def ping(ctx):
+        #     await ctx.send('Pong!')
+
+        # @self.command()
+        # async def delete(ctx, amount=5):
+        #     await ctx.channel.purge(limit=amount)
     
 
 
