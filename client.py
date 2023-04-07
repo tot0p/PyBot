@@ -7,15 +7,21 @@ from discord.ext import commands
 from dataType.ListChained import ListChained
 
 
+from discord import app_commands
+
+
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.historic = None
         self.registerCommand()
 
+        
+
     async def on_ready(self):
         """Handle when the bot is ready"""
         print('We have logged in as {0.user}'.format(self))
+        await self.tree.sync()
         await self.change_presence(activity=discord.Game(name="Hello World!"))
 
     async def on_message(self, message):
@@ -79,5 +85,20 @@ class Client(commands.Bot):
         async def delete(ctx, amount=5):
             await ctx.channel.purge(limit=amount)
     
-    
+        @self.tree.command()
+        @app_commands.describe(first='The first number to add', second='The second number to add')
+        async def add(
+            interaction: discord.Interaction,
+            # This makes it so the first parameter can only be between 0 to 100.
+            first: app_commands.Range[int, 0, 100],
+            # This makes it so the second parameter must be over 0, with no maximum limit.
+            second: app_commands.Range[int, 0, None],
+        ):
+            """Adds two numbers together"""
+            await interaction.response.send_message(f'{first} + {second} = {first + second}', ephemeral=True)
+
+        # @self.tree.command()
+        # async def ping(interaction: discord.Interaction):
+        #     """Pong!"""
+        #     await interaction.response.send_message('Pong!', ephemeral=True)
 

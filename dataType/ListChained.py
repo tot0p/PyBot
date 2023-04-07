@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from dataType.Node import Node
 
 class ListChained:
@@ -45,4 +46,3 @@ class ListChained:
 #   def __init__(self,data):
 #     self.data = data
 #     self.NextNode = None
-#     self.PrevNode = None
