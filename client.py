@@ -55,7 +55,7 @@ class Client(commands.Bot):
     
     def registerCommand(self):
 
-        load_commands(COMMANDS_MESSAGE_PREFIX_DIR,{"client":self})
+        load_commands(COMMANDS_MESSAGE_PREFIX_DIR,{"client":self,"OWNER_ID":OWNER_ID})
 
 
         # @self.command()
@@ -95,57 +95,59 @@ class Client(commands.Bot):
     def registerSlashCommand(self):
         
 
-        @self.tree.command()
-        async def ping(interaction: discord.Interaction):
-            """Pong!"""
-            await interaction.response.send_message('Pong!', ephemeral=True)
+        load_commands(COMMANDS_SLASH_DIR,{"client":self,"OWNER_ID":OWNER_ID})
+
+        # @self.tree.command()
+        # async def ping(interaction: discord.Interaction):
+        #     """Pong!"""
+        #     await interaction.response.send_message('Pong!', ephemeral=True)
 
 
-        @self.tree.command()
-        async def say(interaction: discord.Interaction, *, message: str):
-            """Make the bot say something"""
-            await interaction.response.send_message(message, ephemeral=True)
+        # @self.tree.command()
+        # async def say(interaction: discord.Interaction, *, message: str):
+        #     """Make the bot say something"""
+        #     await interaction.response.send_message(message, ephemeral=True)
 
-        @self.tree.command()
-        async def turnoff(interaction: discord.Interaction):
-            """Turn off the bot"""
-            if interaction.user.id != OWNER_ID:
-                return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
-            await interaction.response.send_message('Turning off...', ephemeral=True)
-            await self.close()
+        # @self.tree.command()
+        # async def turnoff(interaction: discord.Interaction):
+        #     """Turn off the bot"""
+        #     if interaction.user.id != OWNER_ID:
+        #         return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
+        #     await interaction.response.send_message('Turning off...', ephemeral=True)
+        #     await self.close()
 
-        @self.tree.command()
-        @app_commands.describe(name='The name of role to create')
-        async def create_role(interaction: discord.Interaction, name: str):
-            """Create a role"""
-            guild = interaction.guild
-            if discord.utils.get(guild.roles, name=name) is not None:
-                return await interaction.response.send_message('That role already exists.', ephemeral=True)
-            await guild.create_role(name=name)
-            await interaction.response.send_message(f'Created the {name} role.', ephemeral=True)
+        # @self.tree.command()
+        # @app_commands.describe(name='The name of role to create')
+        # async def create_role(interaction: discord.Interaction, name: str):
+        #     """Create a role"""
+        #     guild = interaction.guild
+        #     if discord.utils.get(guild.roles, name=name) is not None:
+        #         return await interaction.response.send_message('That role already exists.', ephemeral=True)
+        #     await guild.create_role(name=name)
+        #     await interaction.response.send_message(f'Created the {name} role.', ephemeral=True)
 
 
-        @self.tree.command()
-        @app_commands.describe(name='The name of role to add')
-        async def add_role(interaction: discord.Interaction, name: str):
-            """Add a role to the user"""
-            guild = interaction.guild
-            role = discord.utils.get(guild.roles, name=name)
-            if role is None:
-                return await interaction.response.send_message('That role does not exist.', ephemeral=True)
-            await interaction.user.add_roles(role)
-            await interaction.response.send_message(f'Added the {role.name} role to you.', ephemeral=True)
+        # @self.tree.command()
+        # @app_commands.describe(name='The name of role to add')
+        # async def add_role(interaction: discord.Interaction, name: str):
+        #     """Add a role to the user"""
+        #     guild = interaction.guild
+        #     role = discord.utils.get(guild.roles, name=name)
+        #     if role is None:
+        #         return await interaction.response.send_message('That role does not exist.', ephemeral=True)
+        #     await interaction.user.add_roles(role)
+        #     await interaction.response.send_message(f'Added the {role.name} role to you.', ephemeral=True)
 
-        @self.tree.command()
-        @app_commands.describe(name='The name of role to remove')
-        async def remove_role(interaction: discord.Interaction, name: str):
-            """Remove a role from the user"""
-            guild = interaction.guild
-            role = discord.utils.get(guild.roles, name=name)
-            if role is None:
-                return await interaction.response.send_message('That role does not exist.', ephemeral=True)
-            await interaction.user.remove_roles(role)
-            await interaction.response.send_message(f'Removed the {role.name} role from you.', ephemeral=True)
+        # @self.tree.command()
+        # @app_commands.describe(name='The name of role to remove')
+        # async def remove_role(interaction: discord.Interaction, name: str):
+        #     """Remove a role from the user"""
+        #     guild = interaction.guild
+        #     role = discord.utils.get(guild.roles, name=name)
+        #     if role is None:
+        #         return await interaction.response.send_message('That role does not exist.', ephemeral=True)
+        #     await interaction.user.remove_roles(role)
+        #     await interaction.response.send_message(f'Removed the {role.name} role from you.', ephemeral=True)
 
 
 
@@ -160,8 +162,15 @@ class Client(commands.Bot):
 
 def load_commands(DIR: str,ENV : dict):
     contentOfDir = os.listdir(DIR)
+    print("loading commands from "+DIR.replace("/"," "))
     for file in contentOfDir:
         if file.endswith(".py"):
             with open(DIR+"/"+file) as f:
-                code = compile(f.read(), file, 'exec')
-                exec(code, ENV)
+                try:
+                    code = compile(f.read(), file, 'exec')
+                    exec(code, ENV)
+                    print("loaded "+file[:-3])
+                except Exception as e:
+                    print("error while loading "+file)
+                    print(e)
+                    print("")
