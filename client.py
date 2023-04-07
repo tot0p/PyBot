@@ -57,7 +57,7 @@ class Client(commands.Bot):
         load_commands(COMMANDS_MESSAGE_PREFIX_DIR,{"client":self,"OWNER_ID":OWNER_ID})
     
     def registerSlashCommand(self):
-        load_commands(COMMANDS_SLASH_DIR,{"client":self,"OWNER_ID":OWNER_ID})
+        load_slash_commands(COMMANDS_SLASH_DIR,{"client":self,"OWNER_ID":OWNER_ID})
 
     def registerContextMenu(self):
         load_commands(COMMANDS_CONTEXT_MENU_DIR,{"client":self,"OWNER_ID":OWNER_ID})
@@ -77,3 +77,26 @@ def load_commands(DIR: str,ENV : dict):
                     print("error while loading "+file)
                     print(e)
                     print("")
+
+def load_slash_commands(DIR: str,ENV : dict):
+    contentOfDir = os.listdir(DIR)
+    print("loading commands from "+DIR.replace("/"," "))
+    for file in contentOfDir:
+        if file.endswith(".py"):
+            with open(DIR+"/"+file) as f:
+                try:
+                    code = compile(f.read(), file, 'exec')
+                    exec(code, ENV)
+                    print("loaded "+file[:-3])
+                except Exception as e:
+                    print("error while loading "+file)
+                    print(e)
+                    print("")
+        elif os.path.isdir(DIR+"/"+file):
+            # create a new group
+            group = app_commands.Group(name=file,description="group of commands")
+            # add the group to the tree
+            # load the commands in the group
+            ENV["group"] = group
+            load_slash_commands(DIR+"/"+file,ENV)
+            ENV["client"].tree.add_command(group)
