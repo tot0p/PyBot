@@ -37,12 +37,24 @@ class ListChained:
     currentNode = self.firstNode
     string = ""
     while currentNode.NextNode != None:
-      string += str(currentNode.data)+" "
+      string += str(currentNode.data)+"\n"
       currentNode = currentNode.NextNode
     string += str(currentNode.data)
     return string
-
-# class Node:
-#   def __init__(self,data):
-#     self.data = data
-#     self.NextNode = None
+  
+  def get(self, indice):
+    currentNode = self.firstNode
+    i = 0
+    while indice > i:
+      currentNode = currentNode.NextNode
+      i += 1
+    return currentNode.data
+  
+  def remove(self, indice):
+    currentNode = self.firstNode
+    i = 0
+    while indice > i:
+      currentNode = currentNode.NextNode
+      i += 1
+    currentNode.NextNode = currentNode.NextNode.NextNode
+    self.size -= 1

@@ -12,5 +12,4 @@ invite [here](https://discord.com/oauth2/authorize?client_id=1091254412846051338
     - de quoi voir toutes les commandes rentrée par un utilisateur depuis sa première connexion
     - de quoi se déplacer dans cet historique (en avant et en arrière)
     - de quoi vider l'historique
-
 ```

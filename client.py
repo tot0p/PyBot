@@ -1,8 +1,9 @@
 #-*- coding: utf-8 -*-
 import discord
 from discord.ext import commands
-from dataType.ListChained import ListChained
 from discord import app_commands
+
+from historique import Historique
 
 import os
 
@@ -12,6 +13,7 @@ from constant import *
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.historique = Historique()
         self.registerCommand()
         self.registerSlashCommand()
         self.registerContextMenu()
@@ -23,6 +25,13 @@ class Client(commands.Bot):
         await self.tree.sync()
         await self.change_presence(activity=discord.Game(name="Hello World!"))
 
+        # on all guilds, create channels
+        # for guild in self.guilds:
+        #     for channel in guild.channels:
+        #         if channel.name == "general" or channel.name == "général":
+        #             for member in guild.members:
+        #                 await channel.send(member.mention)
+
     async def on_message(self, message):
         """Handle messages sent to the bot"""
         if message.author == self.user:
@@ -30,8 +39,18 @@ class Client(commands.Bot):
         
         message.content = message.content.lower()
 
+        self.historique.add(message.author.id,message.content)
 
         await super().process_commands(message)
+
+
+    # events call for slash commands and context menu was called
+    async def on_interaction(self, interaction):
+        if interaction.type == discord.InteractionType.application_command and interaction.data["name"] != "historique":
+            self.historique.add(interaction.user.id,"/"+interaction.data["name"])
+        
+        
+
 
 
     async def on_member_join(self, member):
