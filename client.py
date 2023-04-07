@@ -12,13 +12,10 @@ from constant import *
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.historic = None
         self.registerCommand()
         self.registerSlashCommand()
         self.registerContextMenu()
 
-
-        
 
     async def on_ready(self):
         """Handle when the bot is ready"""
@@ -33,8 +30,6 @@ class Client(commands.Bot):
         
         message.content = message.content.lower()
 
-        if message.content.startswith('$hello'):
-            await message.channel.send('Hello!')
 
         await super().process_commands(message)
 
@@ -92,9 +87,8 @@ def load_slash_commands(DIR: str,ENV : dict):
                     print("error while loading "+file)
                     print(e)
                     print("")
-        elif os.path.isdir(DIR+"/"+file):
+        elif os.path.isdir(DIR+"/"+file) and file != "__pycache__" and file != "no_load":
             meta = {"description":"no description"}
-
             group = app_commands.Group(name=file,description=meta["description"])
             # add the group to the tree
             # load the commands in the group
