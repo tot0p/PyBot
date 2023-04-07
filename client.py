@@ -55,13 +55,7 @@ class Client(commands.Bot):
     
     def registerCommand(self):
 
-        contentOfDir = os.listdir(COMMANDS_MESSAGE_PREFIX_DIR)
-        for file in contentOfDir:
-            if file.endswith(".py"):
-                with open(COMMANDS_MESSAGE_PREFIX_DIR+"/"+file) as f:
-                    env = {'client': self}
-                    code = compile(f.read(), file, 'exec')
-                    exec(code, env)
+        load_commands(COMMANDS_MESSAGE_PREFIX_DIR,{"client":self})
 
 
         # @self.command()
@@ -162,3 +156,12 @@ class Client(commands.Bot):
                 return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
             await interaction.response.send_message('Turning off...', ephemeral=True)
             await self.close()
+
+
+def load_commands(DIR: str,ENV : dict):
+    contentOfDir = os.listdir(DIR)
+    for file in contentOfDir:
+        if file.endswith(".py"):
+            with open(DIR+"/"+file) as f:
+                code = compile(f.read(), file, 'exec')
+                exec(code, ENV)
