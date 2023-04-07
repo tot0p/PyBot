@@ -1,13 +1,10 @@
 #-*- coding: utf-8 -*-
-
-
 import discord
-
 from discord.ext import commands
 from dataType.ListChained import ListChained
-
-
 from discord import app_commands
+
+from constant import OWNER_ID
 
 
 class Client(commands.Bot):
@@ -97,8 +94,22 @@ class Client(commands.Bot):
             """Adds two numbers together"""
             await interaction.response.send_message(f'{first} + {second} = {first + second}', ephemeral=True)
 
-        # @self.tree.command()
-        # async def ping(interaction: discord.Interaction):
-        #     """Pong!"""
-        #     await interaction.response.send_message('Pong!', ephemeral=True)
+        @self.tree.command()
+        async def ping(interaction: discord.Interaction):
+            """Pong!"""
+            await interaction.response.send_message('Pong!', ephemeral=True)
+
+
+        @self.tree.command()
+        async def say(interaction: discord.Interaction, *, message: str):
+            """Make the bot say something"""
+            await interaction.response.send_message(message, ephemeral=True)
+
+        @self.tree.command()
+        async def turnoff(interaction: discord.Interaction):
+            """Turn off the bot"""
+            if interaction.user.id != OWNER_ID:
+                return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
+            await interaction.response.send_message('Turning off...', ephemeral=True)
+            await self.close()
 
