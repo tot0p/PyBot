@@ -12,6 +12,9 @@ class Client(commands.Bot):
         super().__init__(*args, **kwargs)
         self.historic = None
         self.registerCommand()
+        self.registerSlashCommand()
+        self.registerContextMenu()
+
 
         
 
@@ -82,6 +85,9 @@ class Client(commands.Bot):
         async def delete(ctx, amount=5):
             await ctx.channel.purge(limit=amount)
     
+
+
+    def registerSlashCommand(self):
         @self.tree.command()
         @app_commands.describe(first='The first number to add', second='The second number to add')
         async def add(
@@ -113,3 +119,8 @@ class Client(commands.Bot):
             await interaction.response.send_message('Turning off...', ephemeral=True)
             await self.close()
 
+
+    def registerContextMenu(self):
+        @self.tree.context_menu(name="greet")
+        async def greet(interaction : discord.Interaction, user : discord.Member):
+            await interaction.response.send_message(f"Hello {user.name}!",ephemeral=True)
