@@ -61,7 +61,7 @@ class Client(commands.Bot):
 
     def registerContextMenu(self):
         load_commands(COMMANDS_CONTEXT_MENU_DIR,{"client":self,"OWNER_ID":OWNER_ID})
-
+        
 
 def load_commands(DIR: str,ENV : dict):
     contentOfDir = os.listdir(DIR)
@@ -93,8 +93,9 @@ def load_slash_commands(DIR: str,ENV : dict):
                     print(e)
                     print("")
         elif os.path.isdir(DIR+"/"+file):
-            # create a new group
-            group = app_commands.Group(name=file,description="group of commands")
+            meta = {"description":"no description"}
+
+            group = app_commands.Group(name=file,description=meta["description"])
             # add the group to the tree
             # load the commands in the group
             ENV["group"] = group
