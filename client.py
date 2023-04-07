@@ -121,6 +121,9 @@ class Client(commands.Bot):
 
 
     def registerContextMenu(self):
-        @self.tree.context_menu(name="greet")
-        async def greet(interaction : discord.Interaction, user : discord.Member):
-            await interaction.response.send_message(f"Hello {user.name}!",ephemeral=True)
+        @self.tree.context_menu(name="Turn Off")
+        async def turnoff(interaction : discord.Interaction, user : discord.Member):
+            if interaction.user.id != OWNER_ID:
+                return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
+            await interaction.response.send_message('Turning off...', ephemeral=True)
+            await self.close()
