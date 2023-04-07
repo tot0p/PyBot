@@ -88,17 +88,7 @@ class Client(commands.Bot):
 
 
     def registerSlashCommand(self):
-        @self.tree.command()
-        @app_commands.describe(first='The first number to add', second='The second number to add')
-        async def add(
-            interaction: discord.Interaction,
-            # This makes it so the first parameter can only be between 0 to 100.
-            first: app_commands.Range[int, 0, 100],
-            # This makes it so the second parameter must be over 0, with no maximum limit.
-            second: app_commands.Range[int, 0, None],
-        ):
-            """Adds two numbers together"""
-            await interaction.response.send_message(f'{first} + {second} = {first + second}', ephemeral=True)
+        
 
         @self.tree.command()
         async def ping(interaction: discord.Interaction):
@@ -118,6 +108,40 @@ class Client(commands.Bot):
                 return await interaction.response.send_message('You are not the owner of this bot.', ephemeral=True)
             await interaction.response.send_message('Turning off...', ephemeral=True)
             await self.close()
+
+        @self.tree.command()
+        @app_commands.describe(name='The name of role to create')
+        async def create_role(interaction: discord.Interaction, name: str):
+            """Create a role"""
+            guild = interaction.guild
+            if discord.utils.get(guild.roles, name=name) is not None:
+                return await interaction.response.send_message('That role already exists.', ephemeral=True)
+            await guild.create_role(name=name)
+            await interaction.response.send_message(f'Created the {name} role.', ephemeral=True)
+
+
+        @self.tree.command()
+        @app_commands.describe(name='The name of role to add')
+        async def add_role(interaction: discord.Interaction, name: str):
+            """Add a role to the user"""
+            guild = interaction.guild
+            role = discord.utils.get(guild.roles, name=name)
+            if role is None:
+                return await interaction.response.send_message('That role does not exist.', ephemeral=True)
+            await interaction.user.add_roles(role)
+            await interaction.response.send_message(f'Added the {role.name} role to you.', ephemeral=True)
+
+        @self.tree.command()
+        @app_commands.describe(name='The name of role to remove')
+        async def remove_role(interaction: discord.Interaction, name: str):
+            """Remove a role from the user"""
+            guild = interaction.guild
+            role = discord.utils.get(guild.roles, name=name)
+            if role is None:
+                return await interaction.response.send_message('That role does not exist.', ephemeral=True)
+            await interaction.user.remove_roles(role)
+            await interaction.response.send_message(f'Removed the {role.name} role from you.', ephemeral=True)
+
 
 
     def registerContextMenu(self):
