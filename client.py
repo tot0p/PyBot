@@ -55,10 +55,10 @@ class Client(commands.Bot):
     
     def registerCommand(self):
 
-        contentOfDir = os.listdir(COMMANDS_MESSAGE_DIR)
+        contentOfDir = os.listdir(COMMANDS_MESSAGE_PREFIX_DIR)
         for file in contentOfDir:
             if file.endswith(".py"):
-                with open(COMMANDS_MESSAGE_DIR+"/"+file) as f:
+                with open(COMMANDS_MESSAGE_PREFIX_DIR+"/"+file) as f:
                     env = {'client': self}
                     code = compile(f.read(), file, 'exec')
                     exec(code, env)
