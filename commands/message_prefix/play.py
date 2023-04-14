@@ -1,3 +1,3 @@
 @client.command()
-async def ping(ctx):
+async def play(ctx):
     await ctx.send('oh c fini non ?')

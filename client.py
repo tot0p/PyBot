@@ -39,6 +39,9 @@ class Client(commands.Bot):
         if message.author == self.user:
             return
         
+        if message.author.bot:
+            return
+
         if message.content == "hello":
             await message.channel.send("hello")
             return
