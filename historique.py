@@ -14,16 +14,17 @@ class Historique:
         else:
             return "You don't have any command in your historique"
     
-
     def add(self,user_id,command):
         if user_id in self.all_historique:
             self.all_historique[user_id].append(TimeDate() + " " + command)
         else:
             self.all_historique[user_id] = ListChained(TimeDate() + " " +command)
 
-
     def clear(self,user_id):
-        del self.all_historique[user_id]
+        if user_id in self.all_historique:
+            del self.all_historique[user_id]
+
+        return "Your historique is clear"
 
     def last(self,user_id):
         if user_id in self.all_historique:
