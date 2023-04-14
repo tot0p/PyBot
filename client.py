@@ -32,9 +32,20 @@ class Client(commands.Bot):
         #             for member in guild.members:
         #                 await channel.send(member.mention)
 
+        
+
     async def on_message(self, message):
         """Handle messages sent to the bot"""
         if message.author == self.user:
+            return
+        
+        if message.content == "hello":
+            await message.channel.send("hello")
+            return
+
+        # message type mp
+        if isinstance(message.channel, discord.channel.DMChannel):
+            await message.channel.send("pas lu + ratio")
             return
         
         message.content = message.content.lower()
@@ -50,6 +61,14 @@ class Client(commands.Bot):
             self.historique.add(interaction.user.id,"/"+interaction.data["name"])
         
         
+    # async def on_typing(self, channel, user, when):
+    #     """Handle when a user is typing in a channel"""
+    #     await user.create_dm()
+    #     await user.dm_channel.send(
+    #         f'Hi {user.name}, you are typing in {channel.name}!'
+    #     )
+
+                
 
 
 
