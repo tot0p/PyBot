@@ -25,6 +25,12 @@ class Historique:
     def clear(self,user_id):
         del self.all_historique[user_id]
 
+    def last(self,user_id):
+        if user_id in self.all_historique:
+            return self.all_historique[user_id].firstNode.data
+        else:
+            return "You don't have any command in your historique"
+
     
 def TimeDate():
     return time.strftime("[%d/%m/%Y-%H:%M:%S]", time.localtime())
