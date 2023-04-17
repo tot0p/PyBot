@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 from dataType.ListChained import ListChained
+from dataType.Queue import Queue
+
 import time
 
 from constant import HISTORY_JSON
@@ -10,9 +12,11 @@ import os
 
 from tools import CustomJsonCoder 
 
+
 class Historique:
     def __init__(self):
         self.all_historique = {} 
+        self.Access = Queue()
         self.load()
 
     def show(self,user_id):
