@@ -31,7 +31,7 @@ class Historique:
     def clear(self,user_id):
         if user_id in self.all_historique:
             del self.all_historique[str(user_id)]
-
+            self.save()
         return "Your historique is clear"
 
     def last(self,user_id):
