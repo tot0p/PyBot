@@ -9,13 +9,11 @@ import json
 import os
 
 from tools import CustomJsonCoder 
-import schedule
 
 class Historique:
     def __init__(self):
         self.all_historique = {} 
         self.load()
-        schedule.every(5).minutes.do(self.save)
 
     def show(self,user_id):
         if str(user_id) in self.all_historique:
@@ -28,6 +26,7 @@ class Historique:
             self.all_historique[str(user_id)].append(TimeDate() + " " + command)
         else:
             self.all_historique[str(user_id)] = ListChained(TimeDate() + " " +command)
+        self.save()
 
     def clear(self,user_id):
         if user_id in self.all_historique:
