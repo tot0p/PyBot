@@ -4,16 +4,20 @@ from discord.ext import commands
 from discord import app_commands
 
 from historique import Historique
+from CommandQueue import CommandQueue
 
 import os
 
 from constant import *
 
+def do_nothing():
+    pass
 
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.historique = Historique()
+        self.commandQueue = CommandQueue()
         self.registerCommand()
         self.registerSlashCommand()
         self.registerContextMenu()
@@ -41,6 +45,7 @@ class Client(commands.Bot):
         
         if message.author.bot:
             return
+        
 
         if message.content == "hello":
             await message.channel.send("hello")
@@ -55,14 +60,16 @@ class Client(commands.Bot):
 
         self.historique.add(message.author.id,message.content)
 
+
         await super().process_commands(message)
 
 
     # events call for slash commands and context menu was called
     async def on_interaction(self, interaction):
+
         if interaction.type == discord.InteractionType.application_command and interaction.data["name"] != "historique":
             self.historique.add(interaction.user.id,"/"+interaction.data["name"])
-        
+
         
     # async def on_typing(self, channel, user, when):
     #     """Handle when a user is typing in a channel"""

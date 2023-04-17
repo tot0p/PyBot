@@ -12,16 +12,16 @@ class Queue:
             self.first_node = Node(data)
         else:
             currentNode = self.first_node
-            while currentNode.next_node != None:
-                currentNode = currentNode.next_node
-            currentNode.next_node = Node(data)
+            while currentNode.NextNode != None:
+                currentNode = currentNode.NextNode
+            currentNode.NextNode = Node(data)
 
     def pop(self):
         if self.first_node == None:
             return None
         else:
             data = self.first_node.data
-            self.first_node = self.first_node.next_node
+            self.first_node = self.first_node.NextNode
             return data
         
     def peek(self):
@@ -37,8 +37,8 @@ class Queue:
         else:
             currentNode = self.first_node
             size = 1
-            while currentNode.next_node != None:
-                currentNode = currentNode.next_node
+            while currentNode.NextNode != None:
+                currentNode = currentNode.NextNode
                 size += 1
             return size
         
@@ -47,10 +47,12 @@ class Queue:
 
     def __str__(self) -> str:
         currentNode = self.first_node
+        if currentNode == None:
+            return "None"
         string = ""
-        while currentNode.next_node != None:
+        while currentNode.NextNode != None:
             string += str(currentNode.data)+"\n"
-            currentNode = currentNode.next_node
+            currentNode = currentNode.NextNode
         string += str(currentNode.data)
         return string
     
