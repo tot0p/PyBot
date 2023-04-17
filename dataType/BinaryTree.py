@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 
-class __TreeNode:
+class TreeNode:
     def __init__(self,data):
         self.data = data
         self.right = None
@@ -25,12 +25,12 @@ class __TreeNode:
     def append(self,data):
         if data > self.data:
             if self.right == None:
-                self.right = __TreeNode(data)
+                self.right = TreeNode(data)
             else:
                 self.right.append(data)
-        else:
+        elif data < self.data:
             if self.left == None:
-                self.left = __TreeNode(data)
+                self.left = TreeNode(data)
             else:
                 self.left.append(data)
         
@@ -60,11 +60,11 @@ class BinaryTree:
         if data == None:
             self.root = None
         else:
-            self.root = __TreeNode(data)
+            self.root = TreeNode(data)
 
     def append(self,data):
         if self.root == None:
-            self.root = __TreeNode(data)
+            self.root = TreeNode(data)
         else:
             self.root.append(data)
 
