@@ -18,3 +18,4 @@ class CommandQueue:
             self.queue[user].push(command)
         return len(self.queue[user])
 
+    
