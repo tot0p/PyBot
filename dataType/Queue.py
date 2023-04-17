@@ -53,3 +53,7 @@ class Queue:
             currentNode = currentNode.next_node
         string += str(currentNode.data)
         return string
+    
+
+    def IsEmpty(self):
+        return self.first_node == None
