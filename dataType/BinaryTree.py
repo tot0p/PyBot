@@ -53,6 +53,21 @@ class TreeNode:
             for i in self.right:
                 yield i
 
+    def search(self,data):
+        if self.data == data:
+            return True
+        elif self.data > data:
+            if self.left == None:
+                return False
+            else:
+                return self.left.search(data)
+        else:
+            if self.right == None:
+                return False
+            else:
+                return self.right.search(data)
+            
+
 
 
 class BinaryTree:
@@ -77,6 +92,12 @@ class BinaryTree:
     
     def __iter__(self):
         return self.root.__iter__()
+    
+    def search(self,data):
+        if self.root == None:
+            return False
+        else:
+            return self.root.search(data)
 
     
 
