@@ -1,0 +1,14 @@
+{
+    "question" : "Is it a dog?",
+    "next_nodes" : [
+        {
+            "question" : "Is it a cat?",
+            "responses" : ["Yes","No"],
+            "next_nodes" : [
+                {
+                    "responses" : ["Yes","No"]
+                }
+            ]
+        }
+    ]
+}
