@@ -13,10 +13,17 @@ import os
 from tools import CustomJsonCoder 
 
 
+
+class AccessHistorique:
+    def __init__(self,historique):
+        self.historique = historique
+        self.queue = Queue()
+    
+
+
 class Historique:
     def __init__(self):
         self.all_historique = {} 
-        self.Access = Queue()
         self.load()
 
     def show(self,user_id):
