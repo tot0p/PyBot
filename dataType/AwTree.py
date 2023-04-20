@@ -1,5 +1,7 @@
 #-*- coding: utf-8 -*-
 
+import json
+
 class node :
     '''
     A node that can be used to ask questions and get responses.
@@ -89,6 +91,25 @@ class AwTree:
         return False
 
 
+    # def load(self,path : str) -> None:
+    #     '''
+    #     Load a tree from a json file.
+    #     '''
+    #     with open(path,'r') as file:
+    #         data = json.load(file)
+    #     self.root = node(data['question'])
+    #     self.current_node = self.root
+    #     self.__load_node(data['next_nodes'],self.root)
+
+
+    # def __load_node(self,data : list, node : node) -> None:
+    #     for item in data:
+    #         node.next_nodes.append(node(item['question'],item['responses']))
+    #         self.__load_node(item['next_nodes'],node.next_nodes[-1])
+
+
+   
+
 if __name__ == "__main__":
 
     test = AwTree('Is it a dog?')
@@ -100,3 +121,6 @@ if __name__ == "__main__":
     print(test.send_answer('Yes'))
     print(test.get_question())
     print(test.send_answer('Yes'))
+
+
+    test.load('test.json')

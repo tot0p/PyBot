@@ -26,7 +26,7 @@ class Historique:
         self.all_historique = {} 
         self.load()
 
-    def show(self,user_id):
+    def show(self,user_id) -> str:
         if str(user_id) in self.all_historique:
             return str(self.all_historique[str(user_id)])
         else:
@@ -39,7 +39,7 @@ class Historique:
             self.all_historique[str(user_id)] = ListChained(TimeDate() + " " +command)
         self.save()
 
-    def clear(self,user_id):
+    def clear(self,user_id) -> str:
         if user_id in self.all_historique:
             del self.all_historique[str(user_id)]
             self.save()
