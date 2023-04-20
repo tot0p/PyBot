@@ -13,11 +13,28 @@ import os
 from tools import CustomJsonCoder 
 
 
+from uuid import uuid4
+
 
 class AccessHistorique:
     def __init__(self,historique):
         self.historique = historique
         self.queue = Queue()
+
+    def lock(self):
+        uuid = uuid4().__str__()
+        self.queue.push(uuid)
+        return uuid
+    
+    def wait(self,uuid):
+        while self.queue.peek() != uuid:
+            pass
+
+    def unlock(self,uuid):
+        if self.queue.peek() == uuid:
+            self.queue.pop()
+            return True
+        return False
     
 
 
