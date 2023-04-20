@@ -41,6 +41,22 @@ class node :
             for Node in self.next_nodes:
                 Node.append(question,responses,previous_question)
 
+
+    def load(self,data : dict) -> None:
+        '''
+        Load a tree from a json file.
+        '''
+        if "question"  in data:
+            self.question = data['question']
+        if "responses" in data:
+            self.responses = data['responses']
+        if "next_nodes" in data:
+            for Node in data['next_nodes']:
+                question = None if 'question' not in Node else Node['question']
+                responses = None if 'responses' not in Node else Node['responses']
+                self.next_nodes.append(node(question,responses))
+                self.next_nodes[-1].load(Node)
+
 class AwTree:
     '''
     A tree that can be used to ask questions and get responses.
@@ -90,37 +106,33 @@ class AwTree:
                 return True
         return False
 
+    def load(self,file : str) -> None:
+        '''
+        Load a tree from a json file.
+        '''
+        with open(file,'r') as f:
+            data = json.load(f)
+        self.root.load(data)
 
-    # def load(self,path : str) -> None:
-    #     '''
-    #     Load a tree from a json file.
-    #     '''
-    #     with open(path,'r') as file:
-    #         data = json.load(file)
-    #     self.root = node(data['question'])
-    #     self.current_node = self.root
-    #     self.__load_node(data['next_nodes'],self.root)
-
-
-    # def __load_node(self,data : list, node : node) -> None:
-    #     for item in data:
-    #         node.next_nodes.append(node(item['question'],item['responses']))
-    #         self.__load_node(item['next_nodes'],node.next_nodes[-1])
+    def printAllTree(self) -> None:
+        '''
+        Print the tree.
+        '''
+        str = self.root.question
+        for node in self.root.next_nodes:
+            str += node.question
+        print(str)
 
 
    
 
 if __name__ == "__main__":
 
-    test = AwTree('Is it a dog?')
-    test.append('Is it a cat?',['Yes','No'],'Is it a dog?')
-    test.append('Is it a dog?',['Yes','No'],'Is it a cat?')
+    test = AwTree()
 
 
-    print(test.get_question())
-    print(test.send_answer('Yes'))
-    print(test.get_question())
-    print(test.send_answer('Yes'))
+    test.load('../data/AwTree.json')
+    test.printAllTree()
 
 
-    test.load('test.json')
+# json file
