@@ -18,6 +18,7 @@ class Client(commands.Bot):
         super().__init__(*args, **kwargs)
         self.historique = Historique()
         self.commandQueue = CommandQueue()
+        self.HelpAwTree = None # TODO : ADD AW TREE in HASHTABLE
         self.registerCommand()
         self.registerSlashCommand()
         self.registerContextMenu()
