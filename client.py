@@ -125,7 +125,7 @@ def load_slash_commands(DIR: str,ENV : dict):
                     print("error while loading "+file)
                     print(e)
                     print("")
-        elif os.path.isdir(DIR+"/"+file) and file != "__pycache__" and file != "no_load":
+        elif os.path.isdir(DIR+"/"+file) and file != "__pycache__":
             meta = {"description":"no description"}
             group = app_commands.Group(name=file,description=meta["description"])
             # add the group to the tree
