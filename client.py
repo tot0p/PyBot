@@ -22,7 +22,7 @@ class Client(commands.Bot):
         """Handle when the bot is ready"""
         print('We have logged in as {0.user}'.format(self))
         await self.tree.sync()
-        await self.change_presence(activity=discord.Game(name="Hello World!"))
+        await self.change_presence(activity=discord.Game(name="Welcome to the jungle"))
 
         # on all guilds, create channels
         # for guild in self.guilds:
@@ -42,13 +42,8 @@ class Client(commands.Bot):
             return
         
 
-        if message.content == "hello":
-            await message.channel.send("hello")
-            return
-
         # message type mp
         if isinstance(message.channel, discord.channel.DMChannel):
-            await message.channel.send("pas lu + ratio")
             return
         
         message.content = message.content.lower()

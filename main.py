@@ -17,9 +17,6 @@ if __name__ == '__main__':
     Init()
     Intents = discord.Intents.all()
     client = Client(intents=Intents,command_prefix='!')
-
-    
-
     client.run(env.Get('DISCORD_TOKEN'))
 
     
