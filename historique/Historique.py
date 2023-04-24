@@ -17,7 +17,10 @@ class Historique:
     def __init__(self):
         self.all_historique = {} 
         self.access = AccessHistorique()
-        self.load()
+        try:
+            self.load()
+        except:
+            self.all_historique = {}
 
     def show(self,user_id) -> str:
         uuid = self.access.lock()
