@@ -1,41 +1,17 @@
 #-*- coding: utf-8 -*-
 
+
 from dataType.ListChained import ListChained
-from dataType.Queue import Queue
 
-import time
+from .AccessHistorique import AccessHistorique
+from .TimeDate import TimeDate
 
-from constant import HISTORY_JSON
+from . import CustomJsonCoder
 
 import json
 import os
 
-from tools import CustomJsonCoder 
-
-
-from uuid import uuid4
-
-
-class AccessHistorique:
-    def __init__(self):
-        self.queue = Queue()
-
-    def lock(self):
-        uuid = uuid4().__str__()
-        self.queue.push(uuid)
-        return uuid
-    
-    def wait(self,uuid):
-        while self.queue.peek() != uuid:
-            pass
-
-    def unlock(self,uuid):
-        if self.queue.peek() == uuid:
-            self.queue.pop()
-            return True
-        return False
-    
-
+from constant import HISTORY_JSON
 
 class Historique:
     def __init__(self):
@@ -95,8 +71,3 @@ class Historique:
             return
         with open(HISTORY_JSON,"r") as file:
             self.all_historique = json.load(file,cls=CustomJsonCoder.JsonDecoder)
-
-    
-def TimeDate():
-    return time.strftime("[%d/%m/%Y-%H:%M:%S]", time.localtime())
-
