@@ -4,20 +4,14 @@ from discord.ext import commands
 from discord import app_commands
 
 from historique import Historique
-from CommandQueue import CommandQueue
-
 import os
-
 from constant import *
 
-def do_nothing():
-    pass
 
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.historique = Historique()
-        self.commandQueue = CommandQueue()
         self.HelpAwTree = None # TODO : ADD AW TREE in HASHTABLE
         self.registerCommand()
         self.registerSlashCommand()
