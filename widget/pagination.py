@@ -10,7 +10,7 @@ class PaginationView(discord.ui.View):
     async def update_message(self, message):
         await message.edit(embed=self.embeds[self.current_embed], view=self)
 
-    @discord.ui.button(label="<<", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(label="|<", style=discord.ButtonStyle.blurple)
     async def first_page(self,  interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.defer()
         self.current_embed = 0
@@ -30,7 +30,7 @@ class PaginationView(discord.ui.View):
             self.current_embed += 1
             await self.update_message(interaction.message)
 
-    @discord.ui.button(label=">>", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(label=">|", style=discord.ButtonStyle.blurple)
     async def last_page(self, interaction: discord.Interaction,button: discord.ui.Button):
         await interaction.response.defer()
         self.current_embed = len(self.embeds) - 1
