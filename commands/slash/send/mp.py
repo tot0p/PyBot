@@ -8,6 +8,9 @@ from discord import app_commands
 async def mp(interaction: discord.Interaction, user: discord.Member , message: str):
     """Send a message to a user"""
     # send the message
+    if user.bot:
+        await interaction.response.send_message(f'{user.name} is a bot.', ephemeral=True)
+        return
     await user.create_dm()
     await user.dm_channel.send(message)
 

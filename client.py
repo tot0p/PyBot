@@ -44,11 +44,22 @@ class Client(commands.Bot):
 
         # message type mp
         if isinstance(message.channel, discord.channel.DMChannel):
+            # send message of the user on the general channel
+            for guild in self.guilds:
+                if message.author in guild.members:
+                    for channel in guild.channels:
+                        if channel.name == "general" or channel.name == "général"  :
+                            embed = discord.Embed(title="Message privé", description="Message privé de " + message.author.mention,color=0x0000FF)
+                            embed.add_field(name="Message", value=message.content, inline=False)
+                            embed.set_author(name=message.author.name, icon_url=message.author.avatar)
+                            await channel.send(embed=embed)
+                            return
             return
         
         message.content = message.content.lower()
 
-        self.historique.add(message.author.id,message.content)
+        if message.content.startswith("!"):
+            self.historique.add(message.author.id,message.content)
 
 
         await super().process_commands(message)
