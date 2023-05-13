@@ -45,11 +45,11 @@ class Historique:
     def clear(self,user_id) -> str:
         uuid = self.access.lock()
         self.access.wait(uuid)
-        if user_id in self.all_historique:
+        if str(user_id) in self.all_historique:
             del self.all_historique[str(user_id)]
             self.save()
         self.access.unlock(uuid)
-        return "Your historique is clear"
+        return "Your historique is now empty"
 
     def last(self,user_id):
         uuid = self.access.lock()
