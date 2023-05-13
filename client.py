@@ -58,11 +58,13 @@ class Client(commands.Bot):
         
         message.content = message.content.lower()
 
-        if message.content.startswith("!"):
-            self.historique.add(message.author.id,message.content)
-
-
         await super().process_commands(message)
+
+
+    async def on_command(self, ctx):
+        """Handle when a command is called"""
+        #print(ctx.author.name + " called " + ctx.command.name + " with args " + str(ctx.args))
+        self.historique.add(ctx.author.id, ctx.message.content)
 
 
 
