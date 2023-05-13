@@ -93,7 +93,7 @@ prefix: `!`
 |--------------------|------------------------------------------------------------|
 | `/ping`            | display `pong` (ephemeral)                                 |
 | `/github username` | display GitHub user info (or by default username = `tot0p` |
-|`/about`            | display bot info                                           |
+| `/about`           | display bot info                                           |
 
 ### commands groups
 
