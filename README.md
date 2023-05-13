@@ -41,5 +41,16 @@ python main.py -t your_token
 
 # commandes
 
+
+## message prefix
+
+prefix: `!`
+
+| command | description |
+| ------- | ----------- |
+| `!help` | display help |
+| `!ping` | display `pong` |
+| `!delete n` | delete `n` message (by default `n` = 1)|
+
 # history
 

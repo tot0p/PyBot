@@ -8,8 +8,6 @@ async def show(interaction: discord.Interaction):
     """Show history"""
     txt = client.historique.show(interaction.user.id)
     embeds = []
-
-
     hist = txt.split('\n')
     hist.reverse()
     for i in range(0, len(hist), 10):
