@@ -87,3 +87,4 @@ prefix: `!`
 | command                                | description                                                |
 |----------------------------------------|------------------------------------------------------------|
 | `/send mp username message`            | send message to user                                       |
+| `/send channel channel message`        | send message to channel                                    |
