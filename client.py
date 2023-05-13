@@ -65,6 +65,25 @@ class Client(commands.Bot):
         await super().process_commands(message)
 
 
+
+    async def on_command_error(self, ctx, error):
+        """Handle errors from commands"""
+        if isinstance(error, commands.CommandNotFound):
+            await ctx.send("Commande inconnue")
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Argument manquant")
+        elif isinstance(error, commands.MissingPermissions):
+            await ctx.send("Vous n'avez pas les permissions pour faire cette commande")
+        elif isinstance(error, commands.BotMissingPermissions):
+            await ctx.send("Le bot n'a pas les permissions pour faire cette commande")
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.send("Cette commande est en cooldown, veuillez réessayer dans " + str(round(error.retry_after,2)) + " secondes")
+        else:
+            print(error)
+            await ctx.send("Une erreur est survenue")
+
+        
+
     # events call for slash commands and context menu was called
     async def on_interaction(self, interaction):
 
