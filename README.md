@@ -9,6 +9,14 @@ invite [here](https://discord.com/oauth2/authorize?client_id=1091254412846051338
 
 
 
+# requirements
+
+```sh
+pip install -r requirements.txt
+```
+
+and python 3.10 or newer
+
 # configuration
 
 get your token [here](https://discord.com/developers/applications)
@@ -22,13 +30,13 @@ DISCORD_TOKEN=your_token
 or you can use flags
 
 ```sh
-python3 main.py --token your_token
+python main.py --token your_token
 ```
 
 ---------------------------------------------
 
 ```sh
-python3 main.py -t your_token
+python main.py -t your_token
 ```
 
 # commandes
