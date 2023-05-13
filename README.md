@@ -68,6 +68,13 @@ COMMANDS_CONTEXT_MENU_DIR = "commands/context_menu"
 # commandes
 
 
+## context menu
+
+| command            | description                                                |
+|--------------------|------------------------------------------------------------|
+| `ping`             | display `pong`                                             |
+| `turn off`         | turn off the bot (only for the user with `OWNER_ID`)       |
+
 ## message prefix
 
 prefix: `!`
