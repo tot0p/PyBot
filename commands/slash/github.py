@@ -6,8 +6,8 @@ import requests
 
 @client.tree.command(description="Get github user info")
 @app_commands.describe(user="Github user name")
-async def github(interaction: discord.Interaction, user: str):
-    """github user info"""
+async def github(interaction: discord.Interaction, user: str = "tot0p"):
+    """github user info or tot0p if no user is specified"""
     userInfo = requests.get("https://api.github.com/users/"+user).json()
     if "name" not in userInfo:
         await interaction.response.send_message("User not found", ephemeral=True)
