@@ -11,7 +11,7 @@ from . import CustomJsonCoder
 import json
 import os
 
-from constant import HISTORY_JSON
+from config import HISTORY_JSON
 
 class Historique:
     def __init__(self):

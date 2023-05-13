@@ -19,6 +19,8 @@ and python 3.10 or newer
 
 # configuration
 
+## necessary
+
 get your token [here](https://discord.com/developers/applications)
 
 create a file named `.env` and put your token in it like this:
@@ -37,6 +39,30 @@ python main.py --token your_token
 
 ```sh
 python main.py -t your_token
+```
+
+## optional
+
+you can change values in `config.py`
+
+```py
+#-*- coding: utf-8 -*-
+
+# ID discord of owner of bot
+OWNER_ID = 441196551248019460 # change this by your id
+
+# path to the directory containing the commands message
+HISTORY_JSON = "data/history.json" 
+
+
+# caution: change this if you understand what you are doing
+
+# path to the directory containing the commands message prefix
+COMMANDS_MESSAGE_PREFIX_DIR = "commands/message_prefix" 
+# path to the directory containing the commands slash
+COMMANDS_SLASH_DIR = "commands/slash" 
+# path to the directory containing the commands context menu
+COMMANDS_CONTEXT_MENU_DIR = "commands/context_menu" 
 ```
 
 # commandes
@@ -88,3 +114,10 @@ prefix: `!`
 |----------------------------------------|------------------------------------------------------------|
 | `/send mp username message`            | send message to user                                       |
 | `/send channel channel message`        | send message to channel                                    |
+
+
+# events
+
+| event       | description                             |
+|-------------|-----------------------------------------|
+| `recieve mp`| display `mp` in general channel         |

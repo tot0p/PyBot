@@ -5,7 +5,7 @@ from discord import app_commands
 
 from historique import Historique
 import os
-from constant import *
+from config import *
 
 
 class Client(commands.Bot):
