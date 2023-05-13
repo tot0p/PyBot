@@ -54,7 +54,7 @@ class Historique:
     def last(self,user_id):
         uuid = self.access.lock()
         self.access.wait(uuid)
-        if user_id in self.all_historique:
+        if str(user_id) in self.all_historique:
             self.access.unlock(uuid)
             return self.all_historique[str(user_id)].firstNode.data
         else:
