@@ -79,11 +79,12 @@ COMMANDS_CONTEXT_MENU_DIR = "commands/context_menu"
 
 prefix: `!`
 
-| command     | description                             |
-|-------------|-----------------------------------------|
-| `!help`     | display help                            |
-| `!ping`     | display `pong`                          |
-| `!delete n` | delete `n` message (by default `n` = 1) |
+| command           | description                                          |
+|-------------------|------------------------------------------------------|
+| `!help`           | display help                                         |
+| `!ping`           | display `pong`                                       |
+| `!delete n`       | delete `n` message (by default `n` = 1)              |
+| `!recommendation` | enter in recommendation mode (for details see below) | 
 
 
 ## slash commands
@@ -128,3 +129,13 @@ prefix: `!`
 | event       | description                             |
 |-------------|-----------------------------------------|
 | `recieve mp`| display `mp` in general channel         |
+
+
+# recommendation mode
+
+## commands
+
+| command            | description                                                |
+|--------------------|------------------------------------------------------------|
+| `reset`            | reset recommendation mode                                  |
+| `speak about x`    | say yes if the bot can speak about x                       |

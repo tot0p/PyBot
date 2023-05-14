@@ -73,6 +73,9 @@ class Client(commands.Bot):
                 message.content = message.content.split("speak about")[1].replace(" ","",1)
                 if message.content in self.HelpAwTree.keys():
                     await message.channel.send("yes i can speak about "+message.content)
+                else:
+                    await message.channel.send("i don't know this theme")
+                return
             elif self.AwTreeState[str(message.author.id)] == "":
                 theme = self.HelpAwTree.get_value(message.content)
                 if theme != None:
