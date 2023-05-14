@@ -7,6 +7,9 @@ OWNER_ID = 441196551248019460 # change this by your id
 HISTORY_JSON = "data/history.json" 
 
 
+# path to AwTree HashTable json file
+AWTREE_HASH_TABLE_JSON = "data/awtree_hash_table.json" # caution: change this if you understand what you are doing
+
 # caution: change this if you understand what you are doing
 
 # path to the directory containing the commands message prefix

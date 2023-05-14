@@ -100,6 +100,7 @@ class AwTree:
         '''
         Send an answer to the current question.
         '''
+        answer = answer.lower()
         for node in self.current_node.next_nodes:
             if answer in node.responses:
                 self.current_node = node
@@ -113,6 +114,13 @@ class AwTree:
         with open(file,'r') as f:
             data = json.load(f)
         self.root.load(data)
+
+
+    def loadJson(self,json : str) -> None:
+        '''
+        Load a tree from a json string.
+        '''
+        self.root.load(json)
 
     def printAllTree(self) -> None:
         '''

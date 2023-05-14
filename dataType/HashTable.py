@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
-class Hashtable:
+
+
+class HashTable:
     def __init__(self, elements):
         self.bucket_size = len(elements)
         self.buckets = [[] for i in range(self.bucket_size)]
@@ -29,12 +31,11 @@ class Hashtable:
     
     def __len__(self):
         return self.bucket_size
-    
 
-    def append(self, key, value):
-        hashed_value = hash(key)
-        index = hashed_value % self.bucket_size
-        self.buckets[index].append((key, value))
+
+
+    
+        
     
 
 if __name__ == "__main__":
@@ -43,8 +44,6 @@ if __name__ == "__main__":
     print(hastTab.get_value("coucou"))
     print(hastTab.get_value("salut"))
     print(hastTab.get_value("bonjour"))
-    print(hastTab.get_value("bonsoir"))
 
-    hastTab.append("bonsoir", 6)
-    print(hastTab.get_value("bonsoir"))
-    print(hastTab)
+
+    

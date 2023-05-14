@@ -1,0 +1,21 @@
+{
+    "programming" : {
+        "question" : "Do you want to learn a scripting language or a compiled language?",
+        "next_nodes" : [
+            {
+                "question" : "What do you want to do with the language?",
+                "responses" : ["scripting"],
+                "next_nodes" : [
+
+                ]
+            },
+            {
+                "question" : "What do you want to do with the language?",
+                "responses" : ["compiled"],
+                "next_nodes" : [
+
+                ]
+            }
+        ]
+    }
+}
