@@ -7,6 +7,8 @@ from historique import Historique
 import os
 from config import *
 
+import copy
+
 from reco import LoadAwTreeHashTable
 
 class Client(commands.Bot):
@@ -79,7 +81,7 @@ class Client(commands.Bot):
             elif self.AwTreeState[str(message.author.id)] == "":
                 theme = self.HelpAwTree.get_value(message.content)
                 if theme != None:
-                    self.AwTreeState[str(message.author.id)] = theme
+                    self.AwTreeState[str(message.author.id)] = copy.deepcopy(theme)
                     await message.channel.send(self.AwTreeState[str(message.author.id)].get_question())
                     return
                 else:
