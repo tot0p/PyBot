@@ -1,4 +1,4 @@
-
+#-*- coding: utf-8 -*-
 
 @client.command()
 async def delete(ctx, amount=1):

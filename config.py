@@ -16,3 +16,4 @@ COMMANDS_SLASH_DIR = "commands/slash"
 # path to the directory containing the commands context menu
 COMMANDS_CONTEXT_MENU_DIR = "commands/context_menu" 
 
+

@@ -20,3 +20,31 @@ class Hashtable:
             if key == input_key:
                 return(value)
         return None
+    
+    def __str__(self) -> str:
+        string = ""
+        for bucket in self.buckets:
+            string += str(bucket)+"\n"
+        return string
+    
+    def __len__(self):
+        return self.bucket_size
+    
+
+    def append(self, key, value):
+        hashed_value = hash(key)
+        index = hashed_value % self.bucket_size
+        self.buckets[index].append((key, value))
+    
+
+if __name__ == "__main__":
+
+    hastTab = Hashtable([("coucou", 3), ("salut", 4), ("bonjour", 5)])
+    print(hastTab.get_value("coucou"))
+    print(hastTab.get_value("salut"))
+    print(hastTab.get_value("bonjour"))
+    print(hastTab.get_value("bonsoir"))
+
+    hastTab.append("bonsoir", 6)
+    print(hastTab.get_value("bonsoir"))
+    print(hastTab)

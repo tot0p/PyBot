@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 
-class hashtable_user: 
+class HashTableUser: 
   def __init__(self, bucket_size):
     self.buckets = []
     for i in range(bucket_size):
