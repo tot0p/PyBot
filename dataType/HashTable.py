@@ -23,6 +23,13 @@ class HashTable:
                 return(value)
         return None
     
+    def keys(self):
+        keys = []
+        for bucket in self.buckets:
+            for key, value in bucket:
+                keys.append(key)
+        return keys
+    
     def __str__(self) -> str:
         string = ""
         for bucket in self.buckets:

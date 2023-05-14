@@ -96,6 +96,12 @@ class AwTree:
         '''
         return self.current_node.question
     
+    def is_end(self) -> bool:
+        '''
+        Check if the current node is a leaf.
+        '''
+        return self.current_node.next_nodes == []
+    
     def send_answer(self,answer : str) -> bool:
         '''
         Send an answer to the current question.

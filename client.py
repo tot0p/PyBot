@@ -7,16 +7,20 @@ from historique import Historique
 import os
 from config import *
 
+from reco import LoadAwTreeHashTable
 
 class Client(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.historique = Historique()
-        self.HelpAwTree = None # TODO : ADD AW TREE in HASHTABLE
+        self.HelpAwTree = LoadAwTreeHashTable()
+        self.AwTreeState = {}
         self.registerCommand()
         self.registerSlashCommand()
         self.registerContextMenu()
 
+    def AddUserInAwTree(self,user_id,theme=""):
+        self.AwTreeState[str(user_id)] = theme
 
     async def on_ready(self):
         """Handle when the bot is ready"""
@@ -57,6 +61,41 @@ class Client(commands.Bot):
             return
         
         message.content = message.content.lower()
+
+        
+
+        if not message.content.startswith("!") and str(message.author.id) in self.AwTreeState:
+            if message.content == "reset":
+                self.AwTreeState[str(message.author.id)] = ""
+                await message.channel.send('What you want to talk about? (ex: "programming")')
+                return 
+            if "speak about" in message.content:
+                message.content = message.content.split("speak about")[1].replace(" ","",1)
+                if message.content in self.HelpAwTree.keys():
+                    await message.channel.send("yes i can speak about "+message.content)
+            elif self.AwTreeState[str(message.author.id)] == "":
+                theme = self.HelpAwTree.get_value(message.content)
+                if theme != None:
+                    self.AwTreeState[str(message.author.id)] = theme
+                    await message.channel.send(self.AwTreeState[str(message.author.id)].get_question())
+                    return
+                else:
+                    await message.channel.send("i don't know this theme")
+                    return
+            else:
+                if self.AwTreeState[str(message.author.id)].send_answer(message.content):
+                    await message.channel.send(self.AwTreeState[str(message.author.id)].get_question())
+                    if self.AwTreeState[str(message.author.id)].is_end():
+                        del self.AwTreeState[str(message.author.id)]
+                        await message.channel.send("if you want to restart the conversation, type !recommendation")
+                    return
+                else:
+                    await message.channel.send("i don't know this answer")
+                    return
+
+
+
+
 
         await super().process_commands(message)
 
