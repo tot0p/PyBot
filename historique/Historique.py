@@ -30,7 +30,7 @@ class Historique:
             return str(self.all_historique[str(user_id)])
         else:
             self.access.unlock(uuid)
-            return "You don't have any command in your historique"
+            return "You don't have any command in your history"
     
     def add(self,user_id,command):
         uuid = self.access.lock()
@@ -49,7 +49,7 @@ class Historique:
             del self.all_historique[str(user_id)]
             self.save()
         self.access.unlock(uuid)
-        return "Your historique is now empty"
+        return "Your history is now empty"
 
     def last(self,user_id):
         uuid = self.access.lock()
@@ -59,7 +59,7 @@ class Historique:
             return self.all_historique[str(user_id)].firstNode.data
         else:
             self.access.unlock(uuid)
-            return "You don't have any command in your historique"
+            return "You don't have any command in your history"
 
 
     def save(self):
