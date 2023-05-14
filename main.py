@@ -7,7 +7,6 @@ from client import Client
 import argparse
 
 
-import requests
 
 def Init():
     """Initialize environment variables."""
