@@ -59,7 +59,6 @@ class Client(commands.Bot):
                             embed.add_field(name="Message", value=message.content, inline=False)
                             embed.set_author(name=message.author.name, icon_url=message.author.avatar)
                             await channel.send(embed=embed)
-                            return
             return
         
         message.content = message.content.lower()
