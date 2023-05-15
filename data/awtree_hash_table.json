@@ -33,5 +33,31 @@
                 "next_nodes":[]
             }
         ]
+    },
+    "test":{
+        "question":"It is a test ?",
+        "next_nodes":[
+            {
+                "question":"It is a test ?",
+                "responses":["test","yes","oui"],
+                "next_nodes":[
+                    {
+                        "question":"Ok it's not a test",
+                        "responses":["no","non"],
+                        "next_nodes":[]
+                    },
+                    {
+                        "question":"Ok it's a test",
+                        "responses":["yes","oui"],
+                        "next_nodes":[]
+                    }
+                ]
+            },
+            {
+                "question":"Ok it's not a test",
+                "responses":["no","non"],
+                "next_nodes":[]
+            }
+        ]
     }
 }
