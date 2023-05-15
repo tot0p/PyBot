@@ -9,6 +9,9 @@ import requests
 async def github(interaction: discord.Interaction, user: str = "tot0p"):
     """github user info or tot0p if no user is specified"""
     userInfo = requests.get("https://api.github.com/users/"+user).json()
+    if "message" in userInfo:
+        await interaction.response.send_message(userInfo["message"], ephemeral=True)
+        return
     if "name" not in userInfo:
         await interaction.response.send_message("User not found", ephemeral=True)
         return
